@@ -1,0 +1,76 @@
+NAME
+    Regexp::Stringify - Stringify a Regexp object
+
+VERSION
+    This document describes version 0.01 of Regexp::Stringify (from Perl
+    distribution Regexp-Stringify), released on 2015-01-06.
+
+SYNOPSIS
+     use Regexp::Stringify qw(stringify_regexp);
+     $str = stringify_regexp(regexp=>qr/abc/i);                         # 'qr(abc)i'
+     $str = stringify_regexp(regexp=>qr/abc/i, with_qr=>0);             # '(?i:abc)'
+     $str = stringify_regexp(regexp=>qr/a/i, with_qr=>0, plver=>5.012); # '(?i-)a'
+     $str = stringify_regexp(regexp=>qr/a/ui, plver=>5.012);            # 'qr(a)i'
+
+FUNCTIONS
+  stringify_regexp(%args) -> str
+    Stringify a Regexp object.
+
+    This routine is an alternative to Perl's default stringification of
+    Regexp object (i.e.:"$re") and has some features/options, e.g.:
+    producing regexp string that is compatible with certain perl versions.
+
+    If given a string (or other non-Regexp object), will return it as-is.
+
+    Arguments ('*' denotes required arguments):
+
+    *   plver => *str*
+
+        Target perl version.
+
+        Try to produce a regexp object compatible with a certain perl
+        version (should at least be >= 5.10).
+
+        For example, in perl 5.14 regex stringification changes, e.g.
+        "qr/hlagh/i" would previously be stringified as "(?i-xsm:hlagh)",
+        but now it's stringified as "(?^i:hlagh)". If you set "plver" to
+        5.10 or 5.12, then this routine will still produce the former. It
+        will also ignore regexp modifiers that are introduced in newer
+        perls.
+
+        Note that not all regexp objects will be translated to older perls,
+        e.g. if it contains constructs not known to older perls.
+
+    *   regexp* => *re*
+
+    *   with_qr => *bool*
+
+        If you set this to 1, then "qr/a/i" will be stringified as 'qr/a/i'
+        instead as '(^i:a)'.
+
+    Return value: (str)
+
+HOMEPAGE
+    Please visit the project's homepage at
+    <https://metacpan.org/release/Regexp-Stringify>.
+
+SOURCE
+    Source repository is at
+    <https://github.com/perlancar/perl-Regexp-Stringify>.
+
+BUGS
+    Please report any bugs or feature requests on the bugtracker website
+    <https://rt.cpan.org/Public/Dist/Display.html?Name=Regexp-Stringify>
+
+    When submitting a bug or request, please include a test-file or a patch
+    to an existing test-file that illustrates the bug or desired feature.
+
+AUTHOR
+    perlancar <perlancar@cpan.org>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2015 by perlancar@cpan.org.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
