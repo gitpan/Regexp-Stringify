@@ -1,7 +1,7 @@
 package Regexp::Stringify;
 
 our $DATE = '2015-01-06'; # DATE
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 use 5.010001;
 use strict;
@@ -58,7 +58,8 @@ _
             description => <<'_',
 
 If you set this to 1, then `qr/a/i` will be stringified as `'qr/a/i'` instead as
-`'(^i:a)'`.
+`'(^i:a)'`. The resulting string can then be eval-ed to recreate the Regexp
+object.
 
 _
         },
@@ -108,15 +109,17 @@ Regexp::Stringify - Stringify a Regexp object
 
 =head1 VERSION
 
-This document describes version 0.01 of Regexp::Stringify (from Perl distribution Regexp-Stringify), released on 2015-01-06.
+This document describes version 0.02 of Regexp::Stringify (from Perl distribution Regexp-Stringify), released on 2015-01-06.
 
 =head1 SYNOPSIS
 
+Assuming this runs on Perl 5.14 or newer.
+
  use Regexp::Stringify qw(stringify_regexp);
- $str = stringify_regexp(regexp=>qr/abc/i);                         # 'qr(abc)i'
- $str = stringify_regexp(regexp=>qr/abc/i, with_qr=>0);             # '(?i:abc)'
- $str = stringify_regexp(regexp=>qr/a/i, with_qr=>0, plver=>5.012); # '(?i-)a'
- $str = stringify_regexp(regexp=>qr/a/ui, plver=>5.012);            # 'qr(a)i'
+ $str = stringify_regexp(regexp=>qr/a/i);                       # '(^i:a)'
+ $str = stringify_regexp(regexp=>qr/a/i, with_qr=>1);           # 'qr(a)i'
+ $str = stringify_regexp(regexp=>qr/a/i, plver=>5.010);         # '(?:(?i-)a)'
+ $str = stringify_regexp(regexp=>qr/a/ui, plver=>5.010);        # '(?:(?i-)a)'
 
 =head1 FUNCTIONS
 
@@ -156,7 +159,8 @@ contains constructs not known to older perls.
 =item * B<with_qr> => I<bool>
 
 If you set this to 1, then C<qr/a/i> will be stringified as C<'qr/a/i'> instead as
-C<'(^i:a)'>.
+C<'(^i:a)'>. The resulting string can then be eval-ed to recreate the Regexp
+object.
 
 =back
 
