@@ -1,7 +1,7 @@
 package Regexp::Stringify;
 
-our $DATE = '2015-01-06'; # DATE
-our $VERSION = '0.02'; # VERSION
+our $DATE = '2015-01-08'; # DATE
+our $VERSION = '0.03'; # VERSION
 
 use 5.010001;
 use strict;
@@ -109,7 +109,7 @@ Regexp::Stringify - Stringify a Regexp object
 
 =head1 VERSION
 
-This document describes version 0.02 of Regexp::Stringify (from Perl distribution Regexp-Stringify), released on 2015-01-06.
+This document describes version 0.03 of Regexp::Stringify (from Perl distribution Regexp-Stringify), released on 2015-01-08.
 
 =head1 SYNOPSIS
 
@@ -126,13 +126,15 @@ Assuming this runs on Perl 5.14 or newer.
 
 =head2 stringify_regexp(%args) -> str
 
-Stringify a Regexp object.
+{en_US Stringify a Regexp object}.
 
+{en_US 
 This routine is an alternative to Perl's default stringification of Regexp
 object (i.e.:C<"$re">) and has some features/options, e.g.: producing regexp
 string that is compatible with certain perl versions.
 
 If given a string (or other non-Regexp object), will return it as-is.
+}
 
 Arguments ('*' denotes required arguments):
 
@@ -140,8 +142,9 @@ Arguments ('*' denotes required arguments):
 
 =item * B<plver> => I<str>
 
-Target perl version.
+{en_US Target perl version}.
 
+{en_US 
 Try to produce a regexp object compatible with a certain perl version (should at
 least be >= 5.10).
 
@@ -153,14 +156,17 @@ introduced in newer perls.
 
 Note that not all regexp objects will be translated to older perls, e.g. if it
 contains constructs not known to older perls.
+}
 
 =item * B<regexp>* => I<re>
 
 =item * B<with_qr> => I<bool>
 
+{en_US 
 If you set this to 1, then C<qr/a/i> will be stringified as C<'qr/a/i'> instead as
 C<'(^i:a)'>. The resulting string can then be eval-ed to recreate the Regexp
 object.
+}
 
 =back
 
